@@ -1,4 +1,6 @@
-import useInput from "../hooks/use-input";
+import useInput from "../hooks/use-input-reducer";
+const isNotEmpty = value => value.trim() !== "";
+const isEmail = value => value.includes('@');
 
 const BasicForm = (props) => {
   const {
@@ -8,7 +10,7 @@ const BasicForm = (props) => {
     valueChangeHandler: firstNameChangedHandler,
     inputBlurHandler: firstNameBlurHandler,
     reset: resetFirstNameInput,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput(isNotEmpty);
 
   const {
     value: enteredLastName,
@@ -17,7 +19,7 @@ const BasicForm = (props) => {
     valueChangeHandler: lastNameChangedHandler,
     inputBlurHandler: lastNameBlurHandler,
     reset: resetLastNameInput,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput(isNotEmpty);
 
   const {
     value: enteredEmail,
@@ -26,26 +28,37 @@ const BasicForm = (props) => {
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
     reset: resetEmailInput,
-  } = useInput((value) => value.includes("@"));
+  } = useInput(isEmail);
 
   let formIsValid = false;
 
   if (enteredFirstNameIsValid && enteredLastNameIsValid && enteredEmailIsValid) {
     formIsValid = true;
   }
+  const lastNameInputClasses = lastNameInputHasError
+    ? 'form-control invalid'
+    : 'form-control';
+
+  const firstNameInputClasses = lastNameInputHasError
+    ? 'form-control invalid'
+    : 'form-control';
+  const emailInputClasses = emailInputHasError
+    ? 'form-control invalid'
+    : 'form-control';
+
   const formSubmissionHandler = (event) => {
     event.preventDefault();
 
-    if (!enteredFirstNameIsValid) {
+    if (!formIsValid) {
       return;
     }
-    if (!enteredLastNameIsValid) {
-      return;
+    
+    let formResponse = {
+      enteredFirstName,
+      enteredLastName,
+      enteredEmail
     }
-    if (!enteredEmailIsValid) {
-      return;
-    }
-
+    console.log('data to send :', formResponse)
     // nameInputRef.current.value = ''; => NOT IDEAL, DON'T MANIPULATE THE DOM
     resetFirstNameInput();
     resetLastNameInput();
@@ -54,7 +67,7 @@ const BasicForm = (props) => {
   return (
     <form onSubmit={formSubmissionHandler}>
       <div className="control-group">
-        <div className="form-control">
+        <div className={firstNameInputClasses}>
           <label htmlFor="name">First Name</label>
           <input
             type="text"
@@ -67,7 +80,7 @@ const BasicForm = (props) => {
             <p className='error-text'>First Name must not be empty.</p>
           )}
         </div>
-        <div className="form-control">
+        <div className={lastNameInputClasses}>
           <label htmlFor="name">Last Name</label>
           <input
             type="text"
@@ -81,7 +94,7 @@ const BasicForm = (props) => {
           )}
         </div>
       </div>
-      <div className="form-control">
+      <div className={emailInputClasses}>
         <label htmlFor="name">E-Mail Address</label>
         <input
           type="email"

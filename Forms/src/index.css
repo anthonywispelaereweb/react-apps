@@ -100,6 +100,9 @@ button:disabled:active {
   border: 1px solid #b40e0e;
   background-color: #fddddd;
 }
+.invalid label {
+  color: #b40e0e;
+}
 
 .invalid input:focus {
   border-color: #ff8800;
