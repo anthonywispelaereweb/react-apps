@@ -1,0 +1,10 @@
+.topNews {
+	width: 33%;
+	display: inline-block;
+}
+.single-product-widget {
+	position: relative;
+}
+.single-wid-product {
+	margin-bottom: 3rem;
+}
