@@ -2,6 +2,7 @@ import {useState, useCallback, useEffect , Fragment} from "react";
 import classes from "./TopNews.module.css";
 import { productsActions } from '../../../store/productsStore';
 import { useDispatch, useSelector } from 'react-redux';
+import ProductItem from './../../../components/Product/ProductItem';
 
 const TopNews = () => {
   const [errorTopNews, setErrorTopNews] = useState(null);
@@ -26,36 +27,15 @@ const TopNews = () => {
   }, [initTopNews]);
 
   const topNewsProduct = useSelector(state => state.products.topNews);
-  const pathImg = '/../img/'
   return (
     <Fragment>
       <div className={classes.topNews}>
         <h2 >Top New</h2>
         {topNewsProduct && topNewsProduct.map(topNew => {
-          const imgPath = pathImg + topNew.imageName;
-          console.log( 'uri ', imgPath)
           return (
-          <div key={topNew.id} className="single-wid-product">
-            <a href="single-product.html">
-              <img src={imgPath} alt="" className="product-thumb" />
-            </a>
-            <h2>
-              <a href="single-product.html">{topNew.name}</a>
-            </h2>
-            <div className="product-wid-rating">
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-            </div>
-          <div className="product-wid-price">
-            <ins>${topNew.price - ((topNew.price * topNew.discountRate) / 100)}</ins>
-            <del>${topNew.price}</del>
-          </div>
-        </div>) 
-
-        })}
+            <ProductItem key={Math.random()} customKey='topNew-' product={topNew} customClass="single-shop-product"/>
+         )})
+        }
         {errorTopNews &&  <p>{ errorTopNews}</p>}
         
       </div>

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import imgCarousel from './../../img/apple-ipad-97-2017.jpg';
-import imgCarouse2 from './../../img/apple-ipad-97-2018.jpg';
-import imgCarouse3 from './../../img/apple-ipad-air-2-new.jpg';
-import imgCarouse4 from './../../img/apple-ipad-air.jpg';
-import imgCarouse5 from './../../img/apple-ipad-air3-2019.jpg';
-import imgCarouse6 from './../../img/apple-ipad-mini-2019.jpg';
-import imgCarouse7 from './../../img/apple-ipad-mini-3-new.jpg';
-import imgCarouse8 from './../../img/apple-ipad-mini-final.jpg';
-import imgCarouse9 from './../../img/apple-ipad-pro-11-2018.jpg';
-import imgCarouse10 from './../../img/apple-ipad-pro-129-2018.jpg';
+import imgCarousel from './../../assets/Apple/apple-ipad-97-2017.jpg';
+import imgCarouse2 from './../../assets/Apple/apple-ipad-97-2018.jpg';
+import imgCarouse3 from './../../assets/Apple/apple-ipad-air-2-new.jpg';
+import imgCarouse4 from './../../assets/Apple/apple-ipad-air.jpg';
+import imgCarouse5 from './../../assets/Apple/apple-ipad-air3-2019.jpg';
+import imgCarouse6 from './../../assets/Apple/apple-ipad-mini-2019.jpg';
+import imgCarouse7 from './../../assets/Apple/apple-ipad-mini-3-new.jpg';
+import imgCarouse8 from './../../assets/Apple/apple-ipad-mini-final.jpg';
+import imgCarouse9 from './../../assets/Apple/apple-ipad-pro-11-2018.jpg';
+import imgCarouse10 from './../../assets/Apple/apple-ipad-pro-129-2018.jpg';
 import classes from './MyCarousel.module.css'
 // Ressource
 // https://www.npmjs.com/package/react-responsive-carousel

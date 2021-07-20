@@ -2,6 +2,8 @@ import {useState, useCallback, useEffect , Fragment} from "react";
 import classes from "./TopSellers.module.css";
 import { productsActions } from '../../../store/productsStore';
 import { useDispatch, useSelector } from 'react-redux';
+import ProductItem from './../../../components/Product/ProductItem';
+
 
 const TopSellers = () => {
   const [errorTopSellers, setErrorTopSellers] = useState(null);
@@ -16,7 +18,6 @@ const TopSellers = () => {
       }
 
       const dataProduct = await response.json();
-      console.log('dataProduct :', dataProduct)
       dispatch(productsActions.initTopSellers(dataProduct));
     } catch (error) {
       setErrorTopSellers(error.message);
@@ -27,32 +28,14 @@ const TopSellers = () => {
   }, [initTopSellers]);
 
   const topSellersProduct = useSelector(state => state.products.topSellers);
-  const pathImg = './../img/';
   return (
     <Fragment>
       <div className={classes.topSellers}>
         <h2 >Top sellers</h2>
-        {topSellersProduct && topSellersProduct.map(topNew => {
+        {topSellersProduct && topSellersProduct.map( topSeller => {
           return (
-          <div key={topNew.id} className="single-wid-product">
-            <a href="single-product.html">
-              <img src={pathImg + topNew.imageName } alt="" className="product-thumb" />
-            </a>
-            <h2>
-              <a href="single-product.html">{topNew.name}</a>
-            </h2>
-            <div className="product-wid-rating">
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-            </div>
-          <div className="product-wid-price">
-            <ins>${topNew.price - ((topNew.price * topNew.discountRate) / 100)}</ins>
-            <del>${topNew.price}</del>
-          </div>
-        </div>) 
+            <ProductItem  key={Math.random()} customKey='topSeller-' product={topSeller} />
+          ) 
 
         })}
         {errorTopSellers &&  <p>{ errorTopSellers}</p>}

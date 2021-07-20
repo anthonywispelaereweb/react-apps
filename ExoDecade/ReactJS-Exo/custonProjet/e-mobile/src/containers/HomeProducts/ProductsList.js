@@ -1,7 +1,10 @@
 import { Fragment, useState, useCallback, useEffect } from "react";
 import { productsActions } from "./../../store/productsStore";
+// import { categoriesActions } from "./../../store/catagoriesStore";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector  } from "react-redux";
+import ProductItem from './../../components/Product/ProductItem';
+import './ProductsList.css'
 const ProductsList = (props) => {
   const [error, setError] = useState(null);
   const params = useParams();
@@ -14,46 +17,31 @@ const ProductsList = (props) => {
       }
 
       const data = await response.json();
-      console.log('dataProductsList', data.items)
+      // console.log('dataProductsList', data.name)
+      // console.log('dataProductsList', data.items)
       dispatch(productsActions.initProductsList(data.items));
+      // dispatch(categoriesActions.setSelectedCategorie(data.name));
     } catch (error) {
       setError(error.message);
     }
     // eslint-disable-next-line
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     initProduct();
   }, [initProduct]);
   const myProductsList =  useSelector(state => state.products.productsList);
+  const categoriesName =  useSelector(state => state.categories.selectedCategorie);
   return (
     <Fragment>
       <section className="container">
-        <h2>Liste : {params.productListId}</h2>
-
-        {myProductsList && myProductsList.map(topNew => {
+        {/* <h2>Liste : {params.productListId} categoriesName :  {categoriesName}</h2> */}
+        <section className="d-flex flex-wrap align-items-center justify-content-around">
+        {myProductsList && myProductsList.map(product => {
           return (
-          <div key={topNew.id} className="single-wid-product">
-            <a href="single-product.html">
-              <img src={ topNew.imageName } alt="" className="product-thumb" />
-            </a>
-            <h2>
-              <a href="single-product.html">{topNew.name}</a>
-            </h2>
-            <div className="product-wid-rating">
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-            </div>
-          <div className="product-wid-price">
-            <ins>${topNew.price - ((topNew.price * topNew.discountRate) / 100)}</ins>
-            <del>${topNew.price}</del>
-          </div>
-        </div>) 
-
+            <ProductItem customClass="single-shop-product custom-style-shop" key={Math.random()} categories={categoriesName} customKey='product-list-' product={product} />) 
         })}
+        </section>
         {error && <p>{error}</p>}
 
         <NavLink to="/">Retour</NavLink>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialCategoriesState = {
   categories: [],
-  selectedCategorie: "",
+  selectedCategorie: "" || localStorage.getItem('currentCategoriesName'),
 };
 const categoriesSlice = createSlice({
   name: "categories",
@@ -10,8 +10,8 @@ const categoriesSlice = createSlice({
     initcategories(state, action) {
       state.categories = action.payload;
     },
-    selectCategorie(state, action) {
-      state.selectedCategorie = action.currentCategorie;
+    setSelectedCategorie(state, action) {
+      state.selectedCategorie = action.payload;
     },
   },
 });

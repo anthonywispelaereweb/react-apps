@@ -4,6 +4,7 @@ import TopSellers from "./../containers/HomeProducts/TopSellers/TopSellers";
 import TopNews from "./../containers/HomeProducts/TopNews/TopNews";
 import MyCarousel from "./../components/Carousel/MyCarousel";
 import { Route, Switch } from "react-router-dom";
+// import api from './../api/index';
 // eslint-disable-next-line
 import ProductsList from "./../containers/HomeProducts/ProductsList";
 
@@ -18,18 +19,24 @@ const Home = () => {
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
+  // const updateDategories = (data) => [
+  //   dispatch(categoriesActions.initcategories(data))
+
+  // ]
 
   const initcategorie = useCallback(async () => {
     setError(null);
     try {
+      // const result = api({path: '/categories'},updateDategories );
+      // console.log('result', result)
       const response = await fetch("http://localhost:3000/categories");
       if (!response.ok) {
         throw new Error("Aucunes catérogies n'ont été traouve");
       }
 
       const data = await response.json();
+      dispatch(categoriesActions.initcategories(data))
 
-      dispatch(categoriesActions.initcategories(data));
     } catch (error) {
       setError(error.message);
     }

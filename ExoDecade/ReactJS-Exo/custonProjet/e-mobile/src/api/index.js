@@ -1,11 +1,11 @@
 import config from './../constants/index';
 
-import { useState } from 'react';
-const useHttp = (requestConfig, applyData) => {
-	const [isLoading, setIsloading] = useState(false);
-	const [error, setError] = useState(null);
+// import { useState } from 'react';
+const api = (requestConfig, applyData) => {
+	// const [isLoading, setIsloading] = useState(false);
+	// const [error, setError] = useState(null);
 	const sendRequest = async () => {
-		setIsloading(true)
+		// setIsloading(true)
 
 		try {
 			const response = await fetch(config.url + requestConfig.path, {
@@ -22,16 +22,16 @@ const useHttp = (requestConfig, applyData) => {
 			applyData(data);
 			
 		}catch (error) {
-			setError(error.message);
+			// setError(error.message);
 			console.log('erreur', error)
 		}
-		setIsloading(false)
+		// setIsloading(false)
 	}
 	return {
-		isLoading,
-		error,
+		// isLoading,
+		// error,
 		sendRequest
 	}
 };
 
-export default useHttp;
+export default api;
