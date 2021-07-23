@@ -1,0 +1,14 @@
+.recentView {
+	width: 33%;
+	display: inline-block;
+	vertical-align: top;
+}
+.single-product-widget {
+	position: relative;
+}
+.single-wid-product {
+	margin-bottom: 3rem;
+}
+.recentView h2 {
+	text-align: center;
+}

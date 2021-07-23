@@ -3,3 +3,11 @@
 	border:1px solid gray;
 	padding: .5rem;
 }
+.custom-style-basket {
+	width: 50%;
+	border:1px solid gray;
+	padding: .5rem;
+}
+.product-big-title-area {
+	background: url('./../../assets/crossword.png') repeat scroll 0 0 #5a88ca;
+}

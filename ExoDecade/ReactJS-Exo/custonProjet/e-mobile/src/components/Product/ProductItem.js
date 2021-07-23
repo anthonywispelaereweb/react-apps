@@ -1,15 +1,20 @@
 import React, {Fragment} from "react";
 import { NavLink } from "react-router-dom";
+import StarRating from './../../components/StarRating/StarRating'
 // import { useSelector  } from "react-redux";
+import utils from './../../utils';
 
 
 const ProductItem = (props) => {
   // const categoriesName =  useSelector(state => state.categories.selectedCategorie) || localStorage.getItem('currentCategoriesName');
   // const loadImage = imageName => {
-  //   import(`./../../img/${imageName}`).then(image => {
-  //     return image.default;
+  //   // import(`./../../assets/${categoriesName}/${imageName}`).then(image => {
+  //     import(`./../../assets/images/${imageName}`).then(image => {
+  //     // console.log('image', image)
+  //     return image;
   //   });
   // };
+  
   return (
     <Fragment>
       <div
@@ -21,23 +26,27 @@ const ProductItem = (props) => {
           <p>categorie : {props.product.categorie}</p>
         
           {/* <img src={loadImage(props.product.imageName)} alt="" className="product-thumb" /> */}
-          {/* <img
-            src={require(`./../../assets/${categoriesName}/${props.product.imageName}`)}
+          <img
+            src={require(`./../../assets/images/${props.product.imageName}`)}
             alt=""
             className="product-thumb"
-          /> */}
+          />
         
           <h2>
             {props.product.name}
           </h2>
-          <div className="product-wid-rating">{props.product.review}</div>
+          <div className="product-wid-rating">
+            <i className="fas fa-star"></i>
+            {props.product.review}
+            {<StarRating value={props.product.review} />}
+          </div>
           <div className="product-wid-price">
             <ins>
               $
-              {props.product.price -
-                (props.product.price * props.product.discountRate) / 100}
+              {utils.fix2(props.product.price -
+                (props.product.price * props.product.discountRate) / 100)}
             </ins>
-            <del>${props.product.price}</del>
+            <del>${utils.fix2(props.product.price)}</del>
           </div>
         </NavLink>
       </div>

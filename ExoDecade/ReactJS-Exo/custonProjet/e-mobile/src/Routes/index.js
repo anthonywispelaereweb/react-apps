@@ -16,7 +16,7 @@ const Routes = [
 		title: "Liste des produits"
 	},
 	{
-		path: '/bascket',
+		path: '/basket',
 		isExact: true,
 		component : Basket,
 		title: "Panier"

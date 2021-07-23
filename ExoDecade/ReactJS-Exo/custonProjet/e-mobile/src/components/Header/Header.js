@@ -1,10 +1,14 @@
 import classes from "./Header.module.css";
 import img from "./../../assets/logo.png";
-import {NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
+import { useSelector } from "react-redux";
+import utils from "../../utils";
 
 const Header = () => {
-  
+  const location = useLocation();
+  const total = useSelector(state=> state.basket.total)
+  const nbProduct = useSelector(state=> state.basket.products.length)
   return (
     <header className={classes.header}>
       <div className="site-branding-area">
@@ -25,25 +29,28 @@ const Header = () => {
             </div>
 
             <div className="col-sm-4">
-              <div className="shopping-item">
-                <NavLink to="/Basket">
-                  Cart : <span className="cart-amunt">100.58 €</span>{" "}
+              <NavLink to="/basket">
+                <div className="shopping-item">
+                  Cart : <span className="cart-amunt">{utils.fix2(total)} $</span>{" "}
                   <i className="fa fa-shopping-cart"></i>{" "}
-                  <span className="product-count">5</span>
-                </NavLink>
-              </div>
+                  <span className="product-count">{nbProduct}</span>
+                </div>
+              </NavLink>
             </div>
           </div>
         </div>
       </div>
-      <div className="container">
+      {location.pathname !== "/basket" ? (
+        <div className="container">
           <div className="row">
-              <div className="navbar">
-                  <NavBar customClass={"nav navbar-nav navbar-expand"} />
-              </div>  
+            <div className="navbar">
+              <NavBar customClass={"nav navbar-nav navbar-expand"} />
+            </div>
           </div>
-      </div>
-      
+        </div>
+      ) : (
+        ""
+      )}
     </header>
   );
 };

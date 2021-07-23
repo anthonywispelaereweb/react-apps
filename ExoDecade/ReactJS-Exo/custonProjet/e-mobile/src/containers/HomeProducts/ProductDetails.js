@@ -1,11 +1,16 @@
-import { Fragment, useState, useCallback, useEffect } from "react";
+import { Fragment, useState, useCallback, useEffect, useRef } from "react";
 import { productsActions } from "./../../store/productsStore";
+import { basketActions } from "./../../store/basketStore";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import utils from './../../utils';
+import StarRating from "./../../components/StarRating/StarRating";
 const ProductDetails = (props) => {
   const [error, setError] = useState(null);
   const params = useParams();
   const dispatch = useDispatch();
+  const quantityRef = useRef(1);
+  const [quantity, setQuantity] = useState(1);
 
   const currentProduct = useCallback(async () => {
     try {
@@ -19,6 +24,8 @@ const ProductDetails = (props) => {
       const data = await response.json();
       console.log("detéails Product", data);
       dispatch(productsActions.setSelectedProduct(data));
+      dispatch(productsActions.addRecentlyViewed(data));
+
     } catch (error) {
       setError(error.message);
     }
@@ -27,28 +34,35 @@ const ProductDetails = (props) => {
 
   useEffect(() => {
     currentProduct();
-  }, [currentProduct]);
+    // eslint-disable-next-line
+  }, []);
 
   const product = useSelector((state) => state.products.selectedProduct);
-  const categoriesName =  useSelector(state => state.categories.selectedCategorie) || localStorage.getItem('currentCategoriesName');
+  const categoriesName =
+    useSelector((state) => state.categories.selectedCategorie) ||
+    localStorage.getItem("currentCategoriesName");
+  const finalPrice = product && utils.discountRacePrice(product, quantity);
+  const finalPriceDiscountRateLess =
+    product && Number(product.price) * Number(quantity);
+  const setQuantityHandler = (event) => {
+    setQuantity(event.target.value);
+  };
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    const enteredValue = quantityRef.current.value;
+    if (enteredValue === "0") {
+      return;
+    }
 
+    console.log("product", product);
+    console.log("quantity", quantity);
+    dispatch(basketActions.addProduct({product,quantity}));
+    setQuantity(1);
+
+  };
   return (
     <Fragment>
       <section className="container">
-        {/* <h2>Liste : {params.idProduct}</h2>
-        <h2>id : {product.id}</h2>
-        <h2>name : {product.name}</h2>
-        <h2>imageName : {product.imageName}</h2>
-        <h2>price : {product.price}</h2>
-        <h2>discountRate : {product.discountRate}</h2>
-        <h2>review : {product.review}</h2>
-        <h2>description : {product.description}</h2> */}
-        {/* <p>{product.id}</p> */}
-        {/* <ProductItem
-          key={Math.random()}
-          customKey="product-detail"
-          product={product}
-        /> */}
         {error && <p>{error}</p>}
         <NavLink to="/">Retour</NavLink>
       </section>
@@ -132,7 +146,11 @@ const ProductDetails = (props) => {
               <div className="product-breadcroumb">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/">{categoriesName}</NavLink>
-                {product && <NavLink to={`/product/${product.id}`}>{product.name}</NavLink>}
+                {product && (
+                  <NavLink to={`/product/${product.id}`}>
+                    {product.name}
+                  </NavLink>
+                )}
               </div>
 
               <div className="row">
@@ -154,23 +172,28 @@ const ProductDetails = (props) => {
                   <div className="product-inner">
                     <h2 className="product-name">{product && product.name}</h2>
                     <div className="product-inner-price">
-                    <ins>
-                        $
-                        {product && product.price -
-                          (product.price * product.discountRate) / 100}
-                      </ins>
-                      <del>${product && product.price}</del>
+                      <ins>${product && utils.fix2(finalPrice)}</ins>
+                      <del>${product && finalPriceDiscountRateLess}</del>
+                    </div>
+                    <div className="product-wid-rating">
+                      {product && <StarRating value={product.review} />}
                     </div>
 
-                    <form action="" className="cart">
+                    <form
+                      action=""
+                      className="cart"
+                      onSubmit={formSubmitHandler}
+                    >
                       <div className="quantity">
                         <input
                           type="number"
                           size="4"
                           className="input-text qty text"
                           title="Qty"
-                          value="1"
+                          value={quantity}
                           name="quantity"
+                          onChange={setQuantityHandler}
+                          ref={quantityRef}
                           min="1"
                           step="1"
                         />
@@ -182,9 +205,7 @@ const ProductDetails = (props) => {
 
                     <div className="product-inner-category">
                       <h2>Product Description</h2>
-                      <p>
-                        {product && product.description}
-                      </p>
+                      <p>{product && product.description}</p>
                     </div>
                   </div>
                 </div>

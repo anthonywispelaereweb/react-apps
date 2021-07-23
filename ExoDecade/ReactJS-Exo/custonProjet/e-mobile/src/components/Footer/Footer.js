@@ -4,7 +4,7 @@ import NavBar from './../Header/NavBar'
 const Footer = () => {
   return (
     <Fragment>
-      <footer className={classes.Footer + "footer-top-area"}>
+      <footer className={`${classes.footer} footer-top-area` }>
         <div className="zigzag-bottom"></div>
         <div className="container">
           <div className="row">
