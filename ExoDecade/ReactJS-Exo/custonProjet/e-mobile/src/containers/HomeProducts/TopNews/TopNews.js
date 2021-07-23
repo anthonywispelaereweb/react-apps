@@ -29,8 +29,8 @@ const TopNews = () => {
   const topNewsProduct = useSelector(state => state.products.topNews);
   return (
     <Fragment>
-      <div className={classes.topNews}>
-        <h2 >Top New</h2>
+      <div className={`${classes.topNews} single-product-widget single-sidebar`}>
+        <h2 className="sidebar-title">Top New</h2>
         {topNewsProduct && topNewsProduct.map(topNew => {
           return (
             <ProductItem key={Math.random()} customKey='topNew-' product={topNew} customClass="single-shop-product"/>

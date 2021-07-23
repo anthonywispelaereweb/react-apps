@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const updateTotal = (state) => {
   let newTotal =0;
   state.products.map( (product) => {
-    console.log('product.price',product.price)
-    console.log('product.quantite',product.qty)
-    console.log('product.discountRate',product.discountRate)
+    // console.log('product.price',product.price)
+    // console.log('product.quantite',product.qty)
+    // console.log('product.discountRate',product.discountRate)
     let discountRate = product.discountRate ? product.discountRate : 0;
     return newTotal += (Number(product.price) - Number(product.price * discountRate / 100) *  Number(product.qty));
   })
   return newTotal
 }
 const transFormProductBasket = (data) => {
-  console.log('have discountRate' , data.product)
+  // console.log('have discountRate' , data.product)
   return {
     id: data.product.id,
     name : data.product.name,
@@ -36,7 +36,7 @@ const basketSlice = createSlice({
     fetchExistingCarts(state,action) {
       state.carts = action.payload;
       for ( let product of action.payload[0].items) {
-        console.log('product item fetch panier', product)
+        // console.log('product item fetch panier', product)
         if(!product.discountRate ) {
           product.discountRate = 0;
         }
@@ -49,9 +49,9 @@ const basketSlice = createSlice({
     addProduct(state, action) {
       const newProduct = transFormProductBasket(action.payload)
       state.products = [...state.products, newProduct]
-      console.log('newProduct',newProduct)
+      // console.log('newProduct',newProduct)
       const newTotal = updateTotal(state)
-      console.log('newTotal',newTotal)
+      // console.log('newTotal',newTotal)
       state.total = newTotal;
 
     },

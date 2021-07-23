@@ -14,7 +14,7 @@ const ProductItem = (props) => {
   //     return image;
   //   });
   // };
-  
+  const constUrl = require(`./../../assets/images/${props.product.imageName}`).default;
   return (
     <Fragment>
       <div
@@ -27,7 +27,7 @@ const ProductItem = (props) => {
         
           {/* <img src={loadImage(props.product.imageName)} alt="" className="product-thumb" /> */}
           <img
-            src={require(`./../../assets/images/${props.product.imageName}`)}
+            src={constUrl}
             alt=""
             className="product-thumb"
           />

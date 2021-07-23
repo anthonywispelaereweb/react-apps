@@ -3,6 +3,7 @@ import { productsActions } from "./../../store/productsStore";
 import { basketActions } from "./../../store/basketStore";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import RecentlyViewed from "../../components/RecentlyView/RecentlyView";
 import utils from './../../utils';
 import StarRating from "./../../components/StarRating/StarRating";
 const ProductDetails = (props) => {
@@ -60,6 +61,7 @@ const ProductDetails = (props) => {
     setQuantity(1);
 
   };
+  const recentlyViewProduct = useSelector((state) => state.products.recentlyViewed);
   return (
     <Fragment>
       <section className="container">
@@ -69,62 +71,8 @@ const ProductDetails = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-md-4">
-            <div className="single-sidebar">
-              <h2 className="sidebar-title">Recently Viewed</h2>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="/">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>700.00 € </ins> <del>100.00 €</del>
-                </div>
-              </div>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="/">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>$700.00</ins> <del>$100.00</del>
-                </div>
-              </div>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="/">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>$700.00</ins> <del>$100.00</del>
-                </div>
-              </div>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="/">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>$700.00</ins> <del>$100.00</del>
-                </div>
-              </div>
-            </div>
-
+            {recentlyViewProduct  && recentlyViewProduct.length !== 0 && <RecentlyViewed max={3} recentlyViewProduct={recentlyViewProduct} customClass={'full'} />}
+          
             <div className="single-sidebar">
               <h2 className="sidebar-title">Others brands</h2>
               <ul>

@@ -1,7 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-const recentlyViewedStoreLocal = JSON.parse(sessionStorage.getItem('recentlyViewed'));
-console.log('recentlyViewedStoreLocal',recentlyViewedStoreLocal)
+
 const initialProductsState = {
 	products: [],
 	productsList: [],
@@ -9,7 +8,7 @@ const initialProductsState = {
 	topSellers: [],
 	topNews: [],
 	selectedProduct: null,
-	recentlyViewed : recentlyViewedStoreLocal || []
+	recentlyViewed : JSON.parse(sessionStorage.getItem('recentlyViewed')) || []
 
 };
 const productsSlice = createSlice({
@@ -38,11 +37,10 @@ const productsSlice = createSlice({
 			state.selectedProduct = action.payload
 		},
 		addRecentlyViewed(state, action) {
-			console.log( 'addProductViewed :',action.payload )
-			let newRecentlyViewde = [ action.payload,...state.recentlyViewed, action.payload]
+			// console.log( 'addProductViewed :',action.payload )
+			let newRecentlyViewde = [ action.payload,...state.recentlyViewed]
 			state.recentlyViewed= newRecentlyViewde
-			let localeStore= JSON.stringify(newRecentlyViewde)
-			sessionStorage.setItem('recentlyViewed', localeStore )
+			sessionStorage.setItem('recentlyViewed', JSON.stringify(newRecentlyViewde) )
 		},
 
 	},

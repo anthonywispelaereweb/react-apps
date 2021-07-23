@@ -30,8 +30,8 @@ const TopSellers = () => {
   const topSellersProduct = useSelector(state => state.products.topSellers);
   return (
     <Fragment>
-      <div className={classes.topSellers}>
-        <h2 >Top sellers</h2>
+      <div className={`${classes.topSellers} single-product-widget single-sidebar`}>
+        <h2 className="sidebar-title">Top sellers</h2>
         {topSellersProduct && topSellersProduct.map( topSeller => {
           return (
             <ProductItem  key={Math.random()} customKey='topSeller-' product={topSeller} />

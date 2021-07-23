@@ -6,8 +6,8 @@ import MyCarousel from "./../components/Carousel/MyCarousel";
 import RecentlyViewed from './../components/RecentlyView/RecentlyView'
 import { Route, Switch, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-// eslint-disable-next-line
-import useHttp from './../hooks/use-http';
+import './Home.css';
+// import api from './../hooks/use-http';
 
 import Footer from "./../components/Footer/Footer";
 
@@ -24,14 +24,17 @@ const Home = () => {
   const recentlyViewProduct = useSelector((state) => state.products.recentlyViewed);
   const dispatch = useDispatch();
   // const updateDategories = (data) => [
-  //   dispatch(categoriesActions.initcategories(data))
+    // dispatch(categoriesActions.initcategories(data))
 
   // ]
-
+  // const initcategorie = async()=> {
+  //   const result = api({path: '/categories'},updateDategories );
+  //   console.log('result', result)
+  // }
   const initcategorie = useCallback(async () => {
     setError(null);
+    // const result = api({path: '/categories'},updateDategories );
     try {
-      // const result = api({path: '/categories'},updateDategories );
       // console.log('result', result)
       const response = await fetch("http://localhost:3000/categories");
       if (!response.ok) {
@@ -44,7 +47,6 @@ const Home = () => {
     } catch (error) {
       setError(error.message);
     }
-    // eslint-disable-next-line
   }, []);
 
   const initcarts = useCallback(async () => {
@@ -129,8 +131,8 @@ const Home = () => {
         </div>
         <div className="container">
           <TopSellers />
-          {console.log('recentlyViewProduct.length', recentlyViewProduct.length)}
-          {recentlyViewProduct  && recentlyViewProduct.length !== 0 && <RecentlyViewed max={3} recentlyViewProduct={recentlyViewProduct}/>}
+          {/* {console.log('recentlyViewProduct.length', recentlyViewProduct.length)} */}
+          {recentlyViewProduct  && recentlyViewProduct.length !== 0 && <RecentlyViewed max={3} recentlyViewProduct={recentlyViewProduct} customClass="resize3"/>}
           
           <TopNews />
         </div>

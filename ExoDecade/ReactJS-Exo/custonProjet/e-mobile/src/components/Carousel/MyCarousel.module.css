@@ -1,4 +1,7 @@
 .carousel-slider {
 	max-height: 300px;
 }
+.customSlideCtn:hover {
+	cursor: pointer;
+}
 
