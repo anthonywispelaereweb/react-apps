@@ -6,14 +6,7 @@ import utils from './../../utils';
 
 
 const ProductItem = (props) => {
-  // const categoriesName =  useSelector(state => state.categories.selectedCategorie) || localStorage.getItem('currentCategoriesName');
-  // const loadImage = imageName => {
-  //   // import(`./../../assets/${categoriesName}/${imageName}`).then(image => {
-  //     import(`./../../assets/images/${imageName}`).then(image => {
-  //     // console.log('image', image)
-  //     return image;
-  //   });
-  // };
+  
   const constUrl = require(`./../../assets/images/${props.product.imageName}`).default;
   return (
     <Fragment>

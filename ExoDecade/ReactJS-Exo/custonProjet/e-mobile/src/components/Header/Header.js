@@ -1,11 +1,32 @@
+import { useState,  useEffect, Fragment } from "react";
+
 import classes from "./Header.module.css";
 import img from "./../../assets/logo.png";
 import { NavLink, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux";
 import utils from "../../utils";
+import { useDispatch } from "react-redux";
 
+import { basketActions } from "./../../store/basketStore";
+import api from './../../api/apiFetch';
 const Header = () => {
+  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
+  
+  useEffect( () => {
+    initcarts();
+  }, []);
+
+  const initcarts = async()=> {
+    const resultCarts = await api({path: '/carts'} );
+    if (resultCarts.apiError) {
+      setError(resultCarts.apiError)
+      return;
+    }
+    console.log('')
+    resultCarts &&  dispatch(basketActions.fetchExistingCarts(resultCarts));
+  }
   const location = useLocation();
   const total = useSelector(state=> state.basket.total)
   const nbProduct = useSelector(state=> state.basket.products.length)

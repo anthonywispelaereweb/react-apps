@@ -19,10 +19,7 @@ const ProductsList = (props) => {
       }
 
       const data = await response.json();
-      // console.log('dataProductsList', data.name)
-      // console.log('dataProductsList', data.items)
       dispatch(productsActions.initProductsList(data.items));
-      // dispatch(categoriesActions.setSelectedCategorie(data.name));
     } catch (error) {
       setError(error.message);
     }
@@ -36,7 +33,7 @@ const ProductsList = (props) => {
   const categoriesName = useSelector(
     (state) => state.categories.selectedCategorie
   );
-  
+
   return (
     <Fragment>
       <section className="container">

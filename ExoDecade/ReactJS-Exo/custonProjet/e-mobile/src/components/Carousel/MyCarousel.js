@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import imgCarousel from "./../../assets/Apple/apple-ipad-97-2017.jpg";
-// import imgCarouse2 from "./../../assets/Apple/apple-ipad-97-2018.jpg";
+import imgCarouse2 from "./../../assets/Apple/apple-ipad-97-2018.jpg";
 import imgCarouse3 from "./../../assets/Apple/apple-ipad-air-2-new.jpg";
 import imgCarouse4 from "./../../assets/Apple/apple-ipad-air.jpg";
 import imgCarouse5 from "./../../assets/Apple/apple-ipad-air3-2019.jpg";
@@ -23,7 +23,7 @@ const slidesCarousel = [
   },
   {
     id: 1002,
-    uri: './../../assets/Apple/apple-ipad-97-2018.jpg',
+    uri: imgCarouse2,
     label: "Img 2",
   },
   {
@@ -71,8 +71,6 @@ const slidesCarousel = [
 const MyCarousel = () => {
   const history = useHistory();
   const moreInfoProduct = (event)=> {
-    console.log(event)
-    console.log(slidesCarousel[event])
     history.replace(`/products/${slidesCarousel[event].id}`);
   }
   return (

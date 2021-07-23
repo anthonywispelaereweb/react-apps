@@ -1,4 +1,4 @@
 const config = {
-  ulr: "http://localhost:3000",
+  url: "http://localhost:3000",
 };
  export default config;

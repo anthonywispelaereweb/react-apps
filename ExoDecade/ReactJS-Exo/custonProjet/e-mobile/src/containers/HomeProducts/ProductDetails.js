@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RecentlyViewed from "../../components/RecentlyView/RecentlyView";
 import utils from './../../utils';
 import StarRating from "./../../components/StarRating/StarRating";
+import api from "../../api/apiFetch";
 const ProductDetails = (props) => {
   const [error, setError] = useState(null);
   const params = useParams();
@@ -13,26 +14,35 @@ const ProductDetails = (props) => {
   const quantityRef = useRef(1);
   const [quantity, setQuantity] = useState(1);
 
-  const currentProduct = useCallback(async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/products/" + params.idProduct
-      );
-      if (!response.ok) {
-        throw new Error("Aucunes détail de produit n'a été trouve");
-      }
+  // const currentProduct = useCallback(async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:3000/products/" + params.idProduct
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error("Aucunes détail de produit n'a été trouve");
+  //     }
 
-      const data = await response.json();
-      console.log("detéails Product", data);
-      dispatch(productsActions.setSelectedProduct(data));
-      dispatch(productsActions.addRecentlyViewed(data));
+  //     const data = await response.json();
+  //     dispatch(productsActions.setSelectedProduct(data));
+  //     dispatch(productsActions.addRecentlyViewed(data));
 
-    } catch (error) {
-      setError(error.message);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
+  const currentProduct = async () => {
+    const pathUrl = `/products/${params.idProduct}`
+    const resultProduct = await api({ path: pathUrl });
+    console.log("resultProduct", resultProduct);
+    if (resultProduct.apiError) {
+      setError(resultProduct.apiError);
+      return;
     }
-    // eslint-disable-next-line
-  }, []);
-
+    resultProduct && dispatch(productsActions.setSelectedProduct(resultProduct))
+    resultProduct &&  dispatch(productsActions.addRecentlyViewed(resultProduct))
+  };
   useEffect(() => {
     currentProduct();
     // eslint-disable-next-line
@@ -55,13 +65,12 @@ const ProductDetails = (props) => {
       return;
     }
 
-    console.log("product", product);
-    console.log("quantity", quantity);
     dispatch(basketActions.addProduct({product,quantity}));
     setQuantity(1);
 
   };
   const recentlyViewProduct = useSelector((state) => state.products.recentlyViewed);
+  // {const img = require(`./../../assets/images/${product.imageName}`).default;}
   return (
     <Fragment>
       <section className="container">
@@ -105,6 +114,8 @@ const ProductDetails = (props) => {
                 <div className="col-sm-6">
                   <div className="product-images">
                     <div className="product-main-img">
+                      {/* TODO img */}
+                      
                       <img src="img/product-2.jpg" alt="" />
                     </div>
 
