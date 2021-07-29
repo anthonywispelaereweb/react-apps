@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import classes from "./Footer.module.css";
-import NavBar from './../Header/NavBar'
+import NavBar from 'components/Header/NavBar'
 const Footer = () => {
   return (
     <Fragment>

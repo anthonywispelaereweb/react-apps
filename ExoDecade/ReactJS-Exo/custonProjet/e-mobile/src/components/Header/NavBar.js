@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./Header.module.css";
-import { categoriesActions } from "./../../store/catagoriesStore";
-import api from "../../api/apiFetch";
+import { categoriesActions } from "store/catagoriesStore";
+import api from "api/apiFetch";
 
 const NavBar = (props) => {
   const [error, setError] = useState(null);

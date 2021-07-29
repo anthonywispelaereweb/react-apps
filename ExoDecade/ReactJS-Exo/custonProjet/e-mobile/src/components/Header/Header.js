@@ -1,15 +1,15 @@
 import { useState,  useEffect } from "react";
 
 import classes from "./Header.module.css";
-import img from "./../../assets/logo.png";
+import img from "assets/logo.png";
 import { NavLink, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux";
-import utils from "../../utils";
+import utils from "utils";
 import { useDispatch } from "react-redux";
 
-import { basketActions } from "./../../store/basketStore";
-import api from './../../api/apiFetch';
+import { basketActions } from "store/basketStore";
+import api from 'api/apiFetch';
 const Header = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);

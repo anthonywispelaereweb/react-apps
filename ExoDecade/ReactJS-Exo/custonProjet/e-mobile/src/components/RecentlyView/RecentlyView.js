@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import classes from "./RecentlyView.module.css";
 // import { useSelector } from "react-redux";
-import ProductItem from "./../Product/ProductItem";
+import ProductItem from "components/Product/ProductItem";
 const RecentlyViewed = (props) => {
   
   return (

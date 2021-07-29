@@ -1,13 +1,13 @@
 import React, {Fragment} from "react";
 import { NavLink } from "react-router-dom";
-import StarRating from './../../components/StarRating/StarRating'
+import StarRating from 'components/StarRating/StarRating'
 // import { useSelector  } from "react-redux";
-import utils from './../../utils';
+import utils from 'utils';
 
 
 const ProductItem = (props) => {
   
-  const constUrl = require(`./../../assets/images/${props.product.imageName}`).default;
+  const constUrl = require(`assets/images/${props.product.imageName}`).default;
   return (
     <Fragment>
       <div

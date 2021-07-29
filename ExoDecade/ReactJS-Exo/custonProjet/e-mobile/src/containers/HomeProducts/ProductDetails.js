@@ -1,12 +1,12 @@
 import { Fragment, useState, useEffect, useRef } from "react";
-import { productsActions } from "./../../store/productsStore";
-import { basketActions } from "./../../store/basketStore";
+import { productsActions } from "store/productsStore";
+import { basketActions } from "store/basketStore";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import RecentlyViewed from "../../components/RecentlyView/RecentlyView";
-import utils from './../../utils';
-import StarRating from "./../../components/StarRating/StarRating";
-import api from "../../api/apiFetch";
+import RecentlyViewed from "components/RecentlyView/RecentlyView";
+import utils from 'utils';
+import StarRating from "components/StarRating/StarRating";
+import api from "api/apiFetch";
 const ProductDetails = (props) => {
   const [error, setError] = useState(null);
   const params = useParams();

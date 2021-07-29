@@ -486,7 +486,7 @@ z-index: 999;}
 }
 .product-thumb {
     float: left;
-    height: 90px;
+    height: 100%;
     margin-right: 15px;
     width: 100px;
 }

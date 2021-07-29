@@ -1,9 +1,9 @@
 import {useState, useEffect , Fragment} from "react";
 import classes from "./TopSellers.module.css";
-import { productsActions } from '../../../store/productsStore';
+import { productsActions } from 'store/productsStore';
 import { useDispatch, useSelector } from 'react-redux';
-import ProductItem from './../../../components/Product/ProductItem';
-import api from './../../../api/apiFetch'
+import ProductItem from 'components/Product/ProductItem';
+import api from 'api/apiFetch'
 
 
 const TopSellers = () => {

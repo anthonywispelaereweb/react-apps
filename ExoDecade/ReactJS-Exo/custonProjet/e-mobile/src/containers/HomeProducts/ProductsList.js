@@ -1,35 +1,34 @@
-import { Fragment, useState, useCallback, useEffect } from "react";
-import { productsActions } from "./../../store/productsStore";
-// import { categoriesActions } from "./../../store/catagoriesStore";
+import { Fragment, useState, useEffect } from "react";
+import { productsActions } from "store/productsStore";
+import { categoriesActions } from "store/catagoriesStore";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ProductItem from "./../../components/Product/ProductItem";
+import ProductItem from "components/Product/ProductItem";
 import "./ProductsList.css";
+import api from 'api/apiFetch';
 const ProductsList = (props) => {
   const [error, setError] = useState(null);
   const params = useParams();
   const dispatch = useDispatch();
-  const initProduct = useCallback(async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/products-lists/" + params.productListId
-      );
-      if (!response.ok) {
-        throw new Error("Aucunes catérogies n'ont été traouve");
+  const initProduct = async () => {
+      const pathUrl = `/products-lists/${params.productListId}`
+      const response = await api({path:pathUrl})
+      
+      if (response.apiError) {
+        setError(response.apiError);
+        return;
       }
+      console.log('response', response)
+      response && dispatch(productsActions.initProductsList(response));
+      response && dispatch(categoriesActions.setSelectedCategorie(response.name));
 
-      const data = await response.json();
-      dispatch(productsActions.initProductsList(data.items));
-    } catch (error) {
-      setError(error.message);
-    }
-    // eslint-disable-next-line
-  }, [params]);
+  };
 
   useEffect(() => {
     initProduct();
-  }, [initProduct]);
-  const myProductsList = useSelector((state) => state.products.productsList);
+     // eslint-disable-next-line
+  }, []);
+  const myProductsList = useSelector((state) => state.products.productsList.items);
   const categoriesName = useSelector(
     (state) => state.categories.selectedCategorie
   );
