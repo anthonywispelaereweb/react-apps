@@ -9,7 +9,6 @@ const NavBar = (props) => {
   const [error, setError] = useState(null);
   const initcategorie = async () => {
     const resultCat = await api({ path: "/categories" });
-    console.log("resultCat", resultCat);
     if (resultCat.apiError) {
       setError(resultCat.apiError);
       return;
@@ -18,6 +17,7 @@ const NavBar = (props) => {
   };
   useEffect(() => {
     initcategorie();
+    // eslint-disable-next-line
   }, []);
   const categories = useSelector((state) => state.categories.categories);
   const dispatch = useDispatch();

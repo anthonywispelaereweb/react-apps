@@ -11,10 +11,10 @@ const apiFetch = async (requestConfig) => {
       throw new Error("Aucunes informations trouvés");
     }
     const data = await response.json();
-    console.log("requestConfig data", data);
+    // console.log("requestConfig data", data);
     return data;
   } catch (error) {
-    console.log("erreur", error);
+    // console.log("erreur", error);
     return { apiError: error.message };
   }
 };

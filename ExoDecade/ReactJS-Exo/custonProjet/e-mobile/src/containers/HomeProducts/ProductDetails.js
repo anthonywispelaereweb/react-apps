@@ -1,4 +1,4 @@
-import { Fragment, useState, useCallback, useEffect, useRef } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import { productsActions } from "./../../store/productsStore";
 import { basketActions } from "./../../store/basketStore";
 import { useParams, NavLink } from "react-router-dom";
@@ -14,24 +14,6 @@ const ProductDetails = (props) => {
   const quantityRef = useRef(1);
   const [quantity, setQuantity] = useState(1);
 
-  // const currentProduct = useCallback(async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:3000/products/" + params.idProduct
-  //     );
-  //     if (!response.ok) {
-  //       throw new Error("Aucunes détail de produit n'a été trouve");
-  //     }
-
-  //     const data = await response.json();
-  //     dispatch(productsActions.setSelectedProduct(data));
-  //     dispatch(productsActions.addRecentlyViewed(data));
-
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  //   // eslint-disable-next-line
-  // }, []);
   const currentProduct = async () => {
     const pathUrl = `/products/${params.idProduct}`
     const resultProduct = await api({ path: pathUrl });
@@ -70,7 +52,7 @@ const ProductDetails = (props) => {
 
   };
   const recentlyViewProduct = useSelector((state) => state.products.recentlyViewed);
-  // {const img = require(`./../../assets/images/${product.imageName}`).default;}
+
   return (
     <Fragment>
       <section className="container">
@@ -105,7 +87,7 @@ const ProductDetails = (props) => {
                 <NavLink to="/">{categoriesName}</NavLink>
                 {product && (
                   <NavLink to={`/product/${product.id}`}>
-                    {product.name}
+                    {utils.firstCapital(product.name)}
                   </NavLink>
                 )}
               </div>
@@ -114,22 +96,24 @@ const ProductDetails = (props) => {
                 <div className="col-sm-6">
                   <div className="product-images">
                     <div className="product-main-img">
-                      {/* TODO img */}
+                      {product && 
+                      <img src={require(`./../../assets/images/${product.imageName}`).default} alt="" />}
                       
-                      <img src="img/product-2.jpg" alt="" />
+                      
                     </div>
 
                     <div className="product-gallery">
-                      <img src="img/product-thumb-1.jpg" alt="" />
-                      <img src="img/product-thumb-2.jpg" alt="" />
-                      <img src="img/product-thumb-3.jpg" alt="" />
+                    {product && <p><img src={require(`./../../assets/images/${product.imageName}`).default} alt="" />
+                      <img src={require(`./../../assets/images/${product.imageName}`).default} alt="" />
+                      <img src={require(`./../../assets/images/${product.imageName}`).default} alt="" />
+                      </p>}
                     </div>
                   </div>
                 </div>
 
                 <div className="col-sm-6">
                   <div className="product-inner">
-                    <h2 className="product-name">{product && product.name}</h2>
+                    <h2 className="product-name">{product && utils.firstCapital(product.name)}</h2>
                     <div className="product-inner-price">
                       <ins>${product && utils.fix2(finalPrice)}</ins>
                       <del>${product && finalPriceDiscountRateLess}</del>

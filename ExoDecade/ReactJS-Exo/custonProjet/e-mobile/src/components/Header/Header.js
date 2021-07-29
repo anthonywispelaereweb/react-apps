@@ -1,4 +1,4 @@
-import { useState,  useEffect, Fragment } from "react";
+import { useState,  useEffect } from "react";
 
 import classes from "./Header.module.css";
 import img from "./../../assets/logo.png";
@@ -16,6 +16,7 @@ const Header = () => {
   
   useEffect( () => {
     initcarts();
+    // eslint-disable-next-line
   }, []);
 
   const initcarts = async()=> {
@@ -24,7 +25,6 @@ const Header = () => {
       setError(resultCarts.apiError)
       return;
     }
-    console.log('')
     resultCarts &&  dispatch(basketActions.fetchExistingCarts(resultCarts));
   }
   const location = useLocation();
@@ -51,6 +51,7 @@ const Header = () => {
 
             <div className="col-sm-4">
               <NavLink to="/basket">
+                {error && <p>{error}</p>}
                 <div className="shopping-item">
                   Cart : <span className="cart-amunt">{utils.fix2(total)} $</span>{" "}
                   <i className="fa fa-shopping-cart"></i>{" "}

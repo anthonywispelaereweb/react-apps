@@ -15,10 +15,6 @@ const ProductItem = (props) => {
         className={props.customClass ? props.customClass : "single-wid-product"}
       >
         <NavLink to={`/products/${props.product.id}`}>
-          <p>url : {props.product.imageName}</p>
-          <p>categorie : {props.product.categorie}</p>
-        
-          {/* <img src={loadImage(props.product.imageName)} alt="" className="product-thumb" /> */}
           <img
             src={constUrl}
             alt=""
@@ -26,7 +22,7 @@ const ProductItem = (props) => {
           />
         
           <h2>
-            {props.product.name}
+            {utils.firstCapital(props.product.name)}
           </h2>
           <div className="product-wid-rating">
             <i className="fas fa-star"></i>
