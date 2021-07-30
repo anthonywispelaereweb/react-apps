@@ -55,9 +55,8 @@ const Home = () => {
             })}
         </div>
       </div>
-      <div className="container">
+      <div className="container d-flex justify-content-between">
         <TopSellers />
-        {/* {console.log('recentlyViewProduct.length', recentlyViewProduct.length)} */}
         {recentlyViewProduct && recentlyViewProduct.length !== 0 && (
           <RecentlyViewed
             max={3}

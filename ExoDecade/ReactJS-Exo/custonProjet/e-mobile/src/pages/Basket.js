@@ -10,22 +10,28 @@ const Basket = () => {
       <div className="container">
         <div className="row">
           <h3>Mon panier</h3>
-          <section className="d-flex flex-wrap align-items-center justify-content-around single-product-area container-100">
-            {myProducts &&
-              myProducts.map((product) => {
-                return (
-                  <ProductItem
-                    customClass="single-shop-product custom-style-basket"
-                    key={Math.random()}
-                    customKey="product-list-"
-                    product={product}
-                  />
-                );
-              })}
-          </section>
-          <div>
-            <NavLink to="/">Retour</NavLink>
-          </div>
+          {myProducts && myProducts.length !== 0 && (
+            <section className="d-flex flex-wrap align-items-center justify-content-around single-product-area container-100">
+              {myProducts &&
+                myProducts.map((product) => {
+                  return (
+                    <ProductItem
+                      customClass="single-shop-product custom-style-basket"
+                      key={Math.random()}
+                      customKey="product-list-"
+                      product={product}
+                      clearable={true}
+                    />
+                  );
+                })}
+            </section>
+          )}
+        </div>
+        {myProducts && myProducts.length === 0 && <div className="row d-flex justify-content-around">Aucun produit pour le moment</div>}
+        <div className="row">
+          <NavLink to="/">
+            <input type="button" value="Retour" />
+          </NavLink>
         </div>
       </div>
     </Fragment>

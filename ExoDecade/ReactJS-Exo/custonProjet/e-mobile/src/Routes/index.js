@@ -3,6 +3,7 @@ import ProductsList from "./../containers/HomeProducts/ProductsList";
 import ProductDetails from "./../containers/HomeProducts/ProductDetails";
 import Basket from './../pages/Basket';
 import Home from './../pages/Home';
+import NotFound from './../pages/404';
 import {Route , Switch} from 'react-router';
 const routes = [
 	{
@@ -28,6 +29,12 @@ const routes = [
 		isExact: false,
 		component : Basket,
 		title: "Panier"
+	},
+	{
+		path: '*',
+		isExact: false,
+		component : NotFound,
+		title: "Not Found"
 	},
 ]
 const NavigationRoute = ()=> {

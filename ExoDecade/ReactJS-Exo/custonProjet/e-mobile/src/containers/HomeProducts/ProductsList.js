@@ -18,16 +18,17 @@ const ProductsList = (props) => {
         setError(response.apiError);
         return;
       }
-      console.log('response', response)
+      // console.log('response', response)
       response && dispatch(productsActions.initProductsList(response));
-      response && dispatch(categoriesActions.setSelectedCategorie(response.name));
+      response && dispatch(categoriesActions.setSelectedCategorie({ name : response.name, id:response.id }))
+
 
   };
 
   useEffect(() => {
     initProduct();
      // eslint-disable-next-line
-  }, []);
+  }, [params]);
   const myProductsList = useSelector((state) => state.products.productsList.items);
   const categoriesName = useSelector(
     (state) => state.categories.selectedCategorie
@@ -42,7 +43,7 @@ const ProductsList = (props) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="product-bit-title text-center">
-                  <h2> {categoriesName} </h2>
+                  <h2> {categoriesName.name} </h2>
                 </div>
               </div>
             </div>
@@ -55,7 +56,7 @@ const ProductsList = (props) => {
                 <ProductItem
                   customClass="single-shop-product custom-style-shop"
                   key={Math.random()}
-                  categories={categoriesName}
+                  categories={categoriesName.name}
                   customKey="product-list-"
                   product={product}
                 />

@@ -1,7 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialCategoriesState = {
   categories: [],
-  selectedCategorie: "" || localStorage.getItem('currentCategoriesName'),
+  selectedCategorie: {
+    name: sessionStorage.getItem("currentCategories")
+      ? JSON.parse(sessionStorage.getItem("currentCategories")).name
+      : "",
+    id: sessionStorage.getItem("currentCategories")
+      ? JSON.parse(sessionStorage.getItem("currentCategories")).id
+      : null,
+  },
 };
 const categoriesSlice = createSlice({
   name: "categories",
@@ -12,6 +19,10 @@ const categoriesSlice = createSlice({
     },
     setSelectedCategorie(state, action) {
       state.selectedCategorie = action.payload;
+      sessionStorage.setItem(
+        "currentCategories",
+        JSON.stringify(action.payload)
+      );
     },
   },
 });

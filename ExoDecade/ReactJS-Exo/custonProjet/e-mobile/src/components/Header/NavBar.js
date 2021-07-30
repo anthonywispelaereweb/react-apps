@@ -22,8 +22,7 @@ const NavBar = (props) => {
   const categories = useSelector((state) => state.categories.categories);
   const dispatch = useDispatch();
   const setCategorieHandler = (event) => {
-    dispatch(categoriesActions.setSelectedCategorie(event.target.outerText));
-    localStorage.setItem("currentCategoriesName", event.target.outerText);
+    dispatch(categoriesActions.setSelectedCategorie({name:event.target.outerText}));
   };
   return (
     <Fragment>
@@ -33,21 +32,26 @@ const NavBar = (props) => {
         </li>
         {categories &&
           categories.map((catagorie) => {
-            return (
-              <li key={catagorie.id} className={classes["nav-item"]}>
-                <NavLink
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#5a88ca",
-                    textDecoration: "underline",
-                  }}
-                  to={`/product-list/${catagorie.productListId}`}
-                  onClick={setCategorieHandler}
-                >
-                  {catagorie.name}
-                </NavLink>
-              </li>
-            );
+            if( props.expectedLink!== 'default' &&  catagorie.name !==  props.expectedLink) {
+
+              return (
+                <li key={catagorie.id} className={classes["nav-item"]}>
+                  <NavLink
+                    activeStyle={{
+                      fontWeight: "bold",
+                      color: "#5a88ca",
+                      textDecoration: "underline",
+                    }}
+                    to={`/product-list/${catagorie.productListId}`}
+                    onClick={setCategorieHandler}
+                  >
+                    {catagorie.name}
+                  </NavLink>
+                </li>
+              );
+            } else {
+              return (<li style={{borderBottom: 'none', padding:0}}  key={Math.random()} ></li>)
+            }
           })}
       </ul>
       {error && <p>oups une erreur {error}</p>}

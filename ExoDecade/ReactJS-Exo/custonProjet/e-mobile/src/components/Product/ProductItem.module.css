@@ -1,0 +1,12 @@
+.clearRelative {
+	position: relative;
+
+}
+.clearCtnButton {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+.clearCtnButton:hover {
+	cursor: pointer;
+}

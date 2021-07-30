@@ -1,11 +1,13 @@
 import { Fragment, useState, useEffect, useRef } from "react";
 import { productsActions } from "store/productsStore";
+// import { categoriesActions } from "store/catagoriesStore";
 import { basketActions } from "store/basketStore";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RecentlyViewed from "components/RecentlyView/RecentlyView";
 import utils from 'utils';
 import StarRating from "components/StarRating/StarRating";
+import NavBar from 'components/Header/NavBar';
 import api from "api/apiFetch";
 const ProductDetails = (props) => {
   const [error, setError] = useState(null);
@@ -17,23 +19,21 @@ const ProductDetails = (props) => {
   const currentProduct = async () => {
     const pathUrl = `/products/${params.idProduct}`
     const resultProduct = await api({ path: pathUrl });
-    console.log("resultProduct", resultProduct);
     if (resultProduct.apiError) {
       setError(resultProduct.apiError);
       return;
     }
     resultProduct && dispatch(productsActions.setSelectedProduct(resultProduct))
-    resultProduct &&  dispatch(productsActions.addRecentlyViewed(resultProduct))
+    resultProduct && dispatch(productsActions.addRecentlyViewed(resultProduct))
   };
   useEffect(() => {
     currentProduct();
     // eslint-disable-next-line
-  }, []);
+  }, [params]);
 
   const product = useSelector((state) => state.products.selectedProduct);
   const categoriesName =
-    useSelector((state) => state.categories.selectedCategorie) ||
-    localStorage.getItem("currentCategoriesName");
+    useSelector((state) => state.categories.selectedCategorie) 
   const finalPrice = product && utils.discountRacePrice(product, quantity);
   const finalPriceDiscountRateLess =
     product && Number(product.price) * Number(quantity);
@@ -57,34 +57,26 @@ const ProductDetails = (props) => {
     <Fragment>
       <section className="container">
         {error && <p>{error}</p>}
-        <NavLink to="/">Retour</NavLink>
+        <NavLink to={`/product-list/${categoriesName.id}`}><input type="button" value="Retour"/></NavLink>
       </section>
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 sm-order-2">
             {recentlyViewProduct  && recentlyViewProduct.length !== 0 && <RecentlyViewed max={3} recentlyViewProduct={recentlyViewProduct} customClass={'full'} />}
           
             <div className="single-sidebar">
               <h2 className="sidebar-title">Others brands</h2>
-              <ul>
-                <li>
-                  <a href="/">Sony</a>
-                </li>
-                <li>
-                  <a href="/">Samsung</a>
-                </li>
-                <li>
-                  <a href="/">LG</a>
-                </li>
-              </ul>
+              <div className="navbar">
+                <NavBar customClass={"nav navbar-nav"} expectedLink={categoriesName.name} />
+            </div>
             </div>
           </div>
 
-          <div className="col-md-8">
-            <div className="product-content-right">
+          <div className="col-md-8 sm-order-1">
+            <div className="product-content-right ">
               <div className="product-breadcroumb">
                 <NavLink to="/">Home</NavLink>
-                <NavLink to="/">{categoriesName}</NavLink>
+                <NavLink to={`/product-list/${categoriesName.id}`}>{categoriesName.name}</NavLink>
                 {product && (
                   <NavLink to={`/product/${product.id}`}>
                     {utils.firstCapital(product.name)}
@@ -98,8 +90,7 @@ const ProductDetails = (props) => {
                     <div className="product-main-img">
                       {product && 
                       <img src={require(`./../../assets/images/${product.imageName}`).default} alt="" />}
-                      
-                      
+
                     </div>
 
                     <div className="product-gallery">
