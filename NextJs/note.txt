@@ -1,0 +1,3 @@
+C:\Users\awispelaere\OneDrive\Documents\Cours Réact\Cours Decade\gitHub\react-apps\NextJs\nextjs-course-code\pages\api\contact.js
+const connectionString = `mongodb+srv://tonio:C9PePg0wdRzhDwzv@clusterocr.zqfs9.mongodb.net/test`;
+const connectionString = `mongodb+srv://tonio:C9PePg0wdRzhDwzv@clusterocr.zqfs9.mongodb.net/test?useUnifiedTopology=true`;
